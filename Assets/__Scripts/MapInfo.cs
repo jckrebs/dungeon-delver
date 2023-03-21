@@ -47,7 +47,6 @@ public class MapInfo : MonoBehaviour
                 }
             }
         }
-        Debug.Log($"Map size: {W} wide by {H} high");
     }
 
     /// <summary>

@@ -46,7 +46,6 @@ public class TilemapManager : MonoBehaviour
                 Debug.LogError($"Failed to parse num of: {tempTiles[i].name}");
             }
         }
-        Debug.Log($"Parsed {DELVER_TILES.Length} tiles into TILES_VISUAL.");
     }
 
     /// <summary>

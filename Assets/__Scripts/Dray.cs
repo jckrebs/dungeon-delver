@@ -58,7 +58,7 @@ public class Dray : MonoBehaviour
             }
 
             // Choosing the proper movement or idle mode based on dirHeld
-            if (dirHeld == 1)
+            if (dirHeld == -1)
             {
                 mode = eMode.idle;
             }
