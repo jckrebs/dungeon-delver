@@ -9,14 +9,19 @@ public class MapInfo : MonoBehaviour
     static public int H { get; private set; }
     static public int [,] MAP { get; private set; }
     static public Vector3 OFFSET = new Vector3(0.5f, 0.5f, 0);
+    static public string COLLISIONS { get; private set; }
 
     [Header("Inscribed")]
     public TextAsset delverLevel;
+    public TextAsset delverCollisions;
 
     // Start is called before the first frame update
     void Start()
     {
         LoadMap();
+
+        // Loading the COLLISIONS information is simpler than a whole map
+        COLLISIONS = Utils.RemoveLineEndings(delverCollisions.text);
     }
 
     /// <summary>
