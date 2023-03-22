@@ -7,6 +7,7 @@ public class InRoom : MonoBehaviour
     static public float ROOM_W = 16;
     static public float ROOM_H = 11;
     static public float WALL = 2;
+    static Vector2 GRID_OFFSET = new Vector2(0.5f, 0.5f);
 
     [Header("Inscribed")]
     public bool keepInRoom = true;
@@ -84,5 +85,21 @@ public class InRoom : MonoBehaviour
             };
             transform.position = tPos + posInRoom;
         }
+    }
+
+    // What is the closest grid location to this character?
+    public Vector2 GetGridPositionInRoom(float mult = -1)
+    {
+        if (mult == -1)
+        {
+            mult = gridMult;
+        }
+        Vector2 posIR = posInRoom - GRID_OFFSET;
+        posIR /= mult;
+        posIR.x = Mathf.Round(posIR.x);
+        posIR.y = Mathf.Round(posIR.y);
+        posIR *= mult;
+        posIR += GRID_OFFSET;
+        return posIR;
     }
 }
