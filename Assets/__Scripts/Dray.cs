@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Dray : MonoBehaviour, IFacingMover
 {
+    static public IFacingMover IFM;
     public enum eMode { idle, move, attack, roomTrans }
 
     [Header("Inscribed")]
@@ -39,6 +40,7 @@ public class Dray : MonoBehaviour, IFacingMover
 
     void Awake()
     {
+        IFM = this;
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         inRm = GetComponent<InRoom>();
