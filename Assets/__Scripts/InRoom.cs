@@ -8,6 +8,38 @@ public class InRoom : MonoBehaviour
     static public float ROOM_H = 11;
     static public float WALL = 2;
 
+    [Header("Inscribed")]
+    public bool keepInRoom = true;
+    public float gridMult = 1;
+    public float radius = 0.5f;
+
+    void LateUpdate()
+    {
+        if (!keepInRoom) return;
+        if (isInRoom) return;
+
+        Vector2 posIR = posInRoom;
+        posIR.x = Mathf.Clamp(posIR.x, WALL + radius, ROOM_W - WALL - radius);
+        posIR.y = Mathf.Clamp(posIR.y, WALL + radius, ROOM_H - WALL - radius);
+        posInRoom = posIR;
+    }
+
+    public bool isInRoom
+    {
+        get
+        {
+            Vector2 posIR = posInRoom;
+            if (posIR.x < WALL + radius
+                || posIR.x > ROOM_W - WALL - radius
+                || posIR.y < WALL + radius
+                || posIR.y > ROOM_H - WALL - radius)
+            {
+                return false;
+            }
+            return true;
+        }
+    }
+
     // Where is this character in local room coordinates?
     public Vector2 posInRoom
     {
