@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Dray : MonoBehaviour, IFacingMover
 {
-    public enum eMode { idle, move, attack }
+    public enum eMode { idle, move, attack, roomTrans }
 
     [Header("Inscribed")]
     public float speed = 5;
     public float attackDuration = 0.25f; // Number of seconds to attack
     public float attackDelay = 0.5f; // Delay between attacks
+    public float roomTransDelay = 0.5f; // Room transition delay
 
     [Header("Dynamic")]
     public int dirHeld = -1; // Direction of the held movement key
@@ -18,6 +19,8 @@ public class Dray : MonoBehaviour, IFacingMover
 
     private float timeAtkDone = 0;
     private float timeAtkNext = 0;
+    private float roomTransDone = 0;
+    private Vector2 roomTransPos;
 
     private Rigidbody2D rigid;
     private Animator anim;
@@ -44,6 +47,16 @@ public class Dray : MonoBehaviour, IFacingMover
     // Update is called once per frame
     void Update()
     {
+        if (mode == eMode.roomTrans)
+        {
+            rigid.velocity = Vector3.zero;
+            anim.speed = 0;
+            posInRoom = roomTransPos; // Keeps Dray in place
+            if (Time.time < roomTransDone) return;
+            // The following line is only reached if Time.time >= transitionDone
+            mode = eMode.idle;
+        }
+
         // Finishing the attack when it's over
         if (mode == eMode.attack && Time.time >= timeAtkDone)
         {
@@ -101,6 +114,55 @@ public class Dray : MonoBehaviour, IFacingMover
         }
 
         rigid.velocity = vel * speed;
+    }
+
+    void LateUpdate()
+    {
+        // Get the nearest quarter-grid position to Dray
+        Vector2 gridPosIR = GetGridPosInRoom(0.25f);
+
+        // Check to see whether we're in a Door tile
+        int doorNum;
+        for (doorNum = 0; doorNum < 4; doorNum++)
+        {
+            if (gridPosIR == InRoom.DOORS[doorNum])
+            {
+                break;
+            }
+        }
+
+        if (doorNum > 3 || doorNum != facing) return;
+
+        // Move to the next room
+        Vector2 rm = roomNum;
+        switch (doorNum)
+        {
+            case 0:
+                rm.x += 1;
+                break;
+            case 1:
+                rm.y += 1;
+                break;
+            case 2:
+                rm.x -= 1;
+                break;
+            case 3:
+                rm.y -= 1;
+                break;
+        }
+
+        // Make sure that the rm we want to jump to is valid
+        if (0 <= rm.x && rm.x <= InRoom.MAX_RM_X)
+        {
+            if (0 <= rm.y && rm.y <= InRoom.MAX_RM_Y)
+            {
+                roomNum = rm;
+                roomTransPos = InRoom.DOORS[(doorNum + 2) % 4];
+                posInRoom = roomTransPos;
+                mode = eMode.roomTrans;
+                roomTransDone = Time.time + roomTransDelay;
+            }
+        }
     }
 
     public int GetFacing() => facing;
