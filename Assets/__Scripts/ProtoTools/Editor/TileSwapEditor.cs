@@ -1,4 +1,4 @@
-// #define USE_TILE_SWAP_EDITOR
+#define USE_TILE_SWAP_EDITOR
 
 #if USE_TILE_SWAP_EDITOR
 
@@ -151,7 +151,7 @@ public class TileSwapEditor : PropertyDrawer {
                 int num = ( prop == "fromTileImg" ) ? fromTileNum : toTileNum;
                 if ( !TILE_SPRITE_DICT.ContainsKey( num ) ) continue;
                 DrawSpritePreview( relRect, TILE_SPRITE_DICT[num] );
-                // EditorGUI.DrawPreviewTexture( relRect, 
+                // EditorGUI.DrawPreviewTexture( relRect,
                 //     TILE_SPRITE_DICT[num] );
                 break;
             default:

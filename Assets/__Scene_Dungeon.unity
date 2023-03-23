@@ -1094,6 +1094,7 @@ GameObject:
   - component: {fileID: 1902918336}
   - component: {fileID: 1902918338}
   - component: {fileID: 1902918339}
+  - component: {fileID: 1902918340}
   m_Layer: 6
   m_Name: Grid
   m_TagString: Untagged
@@ -1157,3 +1158,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualMap: {fileID: 1015568545}
   collisionMap: {fileID: 517709619}
+--- !u!114 &1902918340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902918335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e5454f5e204475fa77238ecc344c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileSwapList:
+  - fromTileNum: 73
+    swapPrefab: {fileID: 0}
+    guaranteedDrop: {fileID: 0}
+    toTileNum: 70
+  - fromTileNum: 57
+    swapPrefab: {fileID: 0}
+    guaranteedDrop: {fileID: 0}
+    toTileNum: 53
+  - fromTileNum: 56
+    swapPrefab: {fileID: 0}
+    guaranteedDrop: {fileID: 0}
+    toTileNum: 52
+  - fromTileNum: 72
+    swapPrefab: {fileID: 0}
+    guaranteedDrop: {fileID: 0}
+    toTileNum: 67
+  - fromTileNum: 88
+    swapPrefab: {fileID: 0}
+    guaranteedDrop: {fileID: 0}
+    toTileNum: 84
+  - fromTileNum: 89
+    swapPrefab: {fileID: 0}
+    guaranteedDrop: {fileID: 0}
+    toTileNum: 85
